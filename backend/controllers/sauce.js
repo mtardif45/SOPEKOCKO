@@ -5,10 +5,17 @@ const sauce = require('../models/sauce');
 // POST - Ajout d'une sauce 
 exports.addSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
-    delete sauceObject._id;
+    delete sauceObject._id; // supprime id venant du frontend
+
+    // création d'une nouvelle sauce 
     const sauce = new Sauce({
         ...sauceObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, userId: req.body.userId
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        // remet à 0 les sauces aimées et detéstées
+        likes: 0,
+        dislikes: 0,
+        usersLiked: [], // insertion dans un tableau vide
+        usersDisliked: []
     });
     sauce.save()
         .then(() => res.status(200).json({ message: 'Nouvelle Sauce enregistrée !' }))
@@ -32,7 +39,7 @@ exports.likeSauce = (req, res, next) => {
                             _id: req.params.id
                         }
                     )
-                        .then(() => res.status(200).json({ message: 'Like retiré' }))
+                        .then(() => res.status(200).json({ message: 'Like annulé' }))
                         .catch((error) => res.status(400).json({ error }))
                 }
 
@@ -45,7 +52,7 @@ exports.likeSauce = (req, res, next) => {
                             _id: req.params.id
                         }
                     )
-                        .then(() => res.status(200).json({ message: 'Dislike retiré' }))
+                        .then(() => res.status(200).json({ message: 'Dislike annulé' }))
                         .catch((error) => res.status(400).json({ error }))
                 }
                 else {
