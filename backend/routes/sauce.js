@@ -14,7 +14,7 @@ router.post('/:id/like', auth, sauceCtrl.likeSauce); // option de like
 router.get('/', auth, sauceCtrl.getAllSauces); // récupérer toutes les sauces 
 
 /*GET ONE */
-router.get('/', auth, sauceCtrl.getOneSauce); // récupère une sauce
+router.get('/:id', auth, sauceCtrl.getOneSauce); // récupère une sauce
 
 /*PUT*/
 router.put('/:id', auth, multer, sauceCtrl.modifySauce); // modifier une sauce
