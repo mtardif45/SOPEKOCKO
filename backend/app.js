@@ -15,7 +15,6 @@ const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
 // connection à MongoDB sécurisée avec des identifiants génériques
-
 mongoose.connect(process.env.MONGO_URL,
     {
         useNewUrlParser: true,

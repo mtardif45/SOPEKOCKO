@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); // cryptage d'un string
 const jwt = require('jsonwebtoken'); // importe du package jsonwebtoken
 const User = require('../models/user'); // import du modèle user
 
@@ -21,7 +21,7 @@ exports.login = (req, res, next) => {
         .then(user => {
             // si aucun user correspondant, on renvoie une erreur
             if (!user) {
-                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+                return res.status(401).json({ error: 'Utilisateur inconnu!' });
             }
             // compare la correspondance avec le mot de passe
             bcrypt.compare(req.body.password, user.password)
@@ -35,7 +35,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET',
+                            'RANDOM_TOKEN_SECRET', // clé de cryptage
                             { expiresIn: '24h' }
                         )
                     });

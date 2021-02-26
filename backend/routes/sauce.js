@@ -8,10 +8,10 @@ const sauceCtrl = require('../controllers/sauce'); // import des controlleurs sa
 router.post('/', auth, multer, sauceCtrl.addSauce); // créer une sauce 
 
 /*POST LIKE */
-router.post('/:id/like', auth, sauceCtrl.likeSauce);
+router.post('/:id/like', auth, sauceCtrl.likeSauce); // option de like
 
 /*GET ALL */
-router.get('/', auth, sauceCtrl.getAllSauce); // récupérer toutes les sauces 
+router.get('/', auth, sauceCtrl.getAllSauces); // récupérer toutes les sauces 
 
 /*GET ONE */
 router.get('/', auth, sauceCtrl.getOneSauce); // récupère une sauce
