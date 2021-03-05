@@ -1,6 +1,6 @@
 const multer = require('multer');// import package multer
 
-const MIME_TYPES = {
+const MIME_TYPES = { // on définit les extensions de fichier acceptées
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
     'image/png': 'png'
@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
         callback(null, 'images'); // destination = fichier image
     },
     filename: (req, file, callback) => {
-        const name = file.originalname.split(' ').join('_');
+        const name = file.originalname.split(' ').join('_'); // on remplace espace par underscore
         const extension = MIME_TYPES[file.mimetype];
         callback(null, name + Date.now() + '.' + extension);
     }
